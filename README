@@ -1,8 +1,28 @@
-This is an alternative version of "platform/external/chromium-webview/" where
-the compiled WebView is patched for compatibility with older Broadcom GPUs.
+Building the Chromium-based WebView in AOSP is no longer supported. WebView can
+now be built entirely from the Chromium source code.
 
-The patches can be found in the "patches" directory of this repository.
+General instructions for building WebView from Chromium:
+https://www.chromium.org/developers/how-tos/build-instructions-android-webview
+
+------
 
 The prebuilt libwebviewchromium.so included in these APKs is built from Chromium
-release tag 47.0.2526.76.
+release tag 55.0.2863.2, using the GN build tool (not the older GYP tool). To match our build settings, set:
 
+target_os="android"
+target_cpu="arm"
+is_debug=false
+is_official_build=true
+is_chrome_branded=false
+use_official_google_api_keys=false
+exclude_unwind_tables=true
+enable_resource_whitelist_generation=true
+ffmpeg_branding="Chrome"
+proprietary_codecs=true
+
+in your GN argument file before building.
+
+------
+
+For questions about building WebView, please see
+https://groups.google.com/a/chromium.org/forum/#!forum/android-webview-dev
